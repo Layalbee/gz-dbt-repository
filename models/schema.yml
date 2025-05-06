@@ -8,7 +8,44 @@
      tables: 
        - name: sales # alias for raw_gz_sales
          identifier: raw_gz_sales
+         description: sales of Greenweez / we have one row per product_id found in each orders_id
+         columns:
+           - name: date_date
+             description: date of purchase
+           - name: orders_id
+             description: Nb of orders 
+           - name: pdt_id 
+             description: unique products ID 
+           - name: revenue
+             description: Turnover of porducts 
+           - name: quantity
+             description: Nb of products bought 
+         tests:
+           - unique:
+              column_name: "(orders_id || '_' || pdt_id)"
        - name: product  # alias for raw_gz_product
          identifier: raw_gz_product
+         description: products of Greenweenz/ we have the price of each products 
+         columns:
+           - name: products_id 
+             description: unique products ID 
+             tests:
+             - unique
+             - not_null
+           - name: purchase_price
+             description: price of each products 
        - name: ship  # alias for raw_gz_ship
          identifier: raw_gz_ship
+         description: shipping of Greenweenz/ we have the price of the shipping 
+         columns:
+           - name: orders_id
+             description: Nb of orders 
+             tests:
+             - unique
+             - not_null
+           - name: shipping_fee
+             description: total price of shipping fee
+           - name: logcost
+             description: Nb of logcost 
+           - name: ship_cost 
+             description: Nb of shipcost 
