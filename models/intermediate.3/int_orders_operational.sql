@@ -2,7 +2,10 @@ WITH sales_margin_data AS (
     SELECT 
         s.orders_id,
         s.date_date,
-        s.margin
+        s.margin,
+        s.quantity,
+        s.revenue,
+        s.purchase_cost
     FROM {{ ref('int_sales_margin') }} s
 ),
 
@@ -13,10 +16,13 @@ shipping_data AS (
         CAST(sh.ship_cost AS FLOAT64) AS ship_cost  -- Cast ship_cost to a numeric format
     FROM{{ ref('stg_raw__ship') }} sh
 )
-
+ 
 SELECT
     sm.orders_id,
     sm.date_date,
+    sm.revenue,
+    sm.quantity,
+    sm.purchase_cost,
     -- Calculate the operational margin
     (sm.margin + sh.shipping_fee - sm.margin - sh.ship_cost) AS operational_margin
 FROM sales_margin_data sm
