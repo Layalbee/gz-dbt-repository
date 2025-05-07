@@ -1,4 +1,4 @@
-{{config(materialized = 'table')}}
+{{config(materialized = 'table') }}
 SELECT
   m.date_date,
   ROUND(COUNT(m.orders_id), 2) AS nb_transactions,
