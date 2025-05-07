@@ -9,6 +9,10 @@
        - name: sales # alias for raw_gz_sales
          identifier: raw_gz_sales
          description: sales of Greenweez / we have one row per product_id found in each orders_id
+          # Freshness testing - make sure to fill in the ...
+         loaded_at_field: "CAST(date_date AS TIMESTAMP)"
+         freshness:
+           warn_after: { count: 90, period: day }
          columns:
            - name: date_date
              description: date of purchase
